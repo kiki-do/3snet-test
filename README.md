@@ -24,3 +24,15 @@
 ```bash
 git clone https://github.com/kiki-do/3snet-test.git
 ```
+
+2. Установка зависимостей
+
+```bash
+yarn install
+```
+
+3. Запуск проекта
+
+```bash
+yarn dev
+```
