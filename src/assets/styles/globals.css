@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --container-lg: 1440px;
+  --spacing-lg: 1080px;
+}
+
+body, html, #root {
+  @apply h-full max-h-lg
+}

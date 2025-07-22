@@ -1,0 +1,42 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+MSG=$(cat "$COMMIT_MSG_FILE")
+
+if echo "$MSG" | grep -qE "^Merge"; then
+  exit 0
+fi
+
+get_emoji() {
+  case $1 in
+    feat) echo "✨" ;;
+    fix) echo "🐛" ;;
+    docs) echo "📝" ;;
+    style) echo "🎨" ;;
+    refactor) echo "♻️" ;;
+    test) echo "✅" ;;
+    chore) echo "🔧" ;;
+    build) echo "🏗" ;;
+    ci) echo "👷" ;;
+    revert) echo "⏪" ;;
+    perf) echo "⚡️" ;;
+    *) echo "" ;;
+  esac
+}
+
+TYPE=$(echo "$MSG" | sed -E 's/^([a-zA-Z]+)(\([^)]+\))?:.*/\1/')
+EMOJI=$(get_emoji "$TYPE")
+
+
+yarn commitlint --edit "$1"
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  exit $RESULT
+fi
+
+if [ -n "$EMOJI" ]; then
+  if ! echo "$MSG" | grep -qE "^$EMOJI "; then
+    echo "$EMOJI $MSG" > "$COMMIT_MSG_FILE"
+  fi
+fi
