@@ -31,9 +31,7 @@ git clone https://github.com/kiki-do/3snet-test.git
 yarn install
 ```
 
-3. Перенесите env зависимости с .env.example
-
-4. Запуск проекта
+3. Запуск проекта
 
 ```bash
 yarn dev
